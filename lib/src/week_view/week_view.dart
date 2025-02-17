@@ -532,7 +532,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
                       onPageChanged: _onPageChange,
                       itemBuilder: (_, index) {
                         final dates = DateTime(_minDate.year, _minDate.month,
-                                _minDate.day + (index * DateTime.daysPerWeek))
+                                _minDate.day + (index * (widget.skipDays ? 7 : widget.weekDays.length)))
                             .datesOfWeek(
                           start: widget.startDay,
                           showWeekEnds: widget.showWeekends,
@@ -581,6 +581,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
                             weekViewScrollController: _scrollController,
                             eventArranger: _eventArranger,
                             weekDays: _weekDays,
+                            skipDays: widget.skipDays,
                             minuteSlotSize: widget.minuteSlotSize,
                             scrollConfiguration: _scrollConfiguration,
                             fullDayEventBuilder: _fullDayEventBuilder,

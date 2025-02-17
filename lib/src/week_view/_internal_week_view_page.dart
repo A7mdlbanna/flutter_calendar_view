@@ -107,6 +107,9 @@ class InternalWeekViewPage<T extends Object?> extends StatefulWidget {
   /// Sequence will be monday to sunday.
   final List<WeekDays> weekDays;
 
+  /// Defines if page changing should be jump the full week when using custom [weekDays].
+  final bool skipDays;
+
   /// Called when user long press on calendar.
   final DatePressCallback? onDateLongPress;
 
@@ -201,6 +204,7 @@ class InternalWeekViewPage<T extends Object?> extends StatefulWidget {
     required this.onDateLongPress,
     required this.onDateTap,
     required this.weekDays,
+    required this.skipDays,
     required this.minuteSlotSize,
     required this.scrollConfiguration,
     required this.startHour,
@@ -510,6 +514,7 @@ class _InternalWeekViewPageState<T extends Object?>
   }
 
   List<DateTime> _filteredDate() {
+    if(!widget.skipDays) return widget.dates;
     final output = <DateTime>[];
 
     final weekDays = widget.weekDays.toList();
