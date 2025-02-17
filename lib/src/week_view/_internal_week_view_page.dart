@@ -89,6 +89,9 @@ class InternalWeekViewPage<T extends Object?> extends StatefulWidget {
   /// Width of week title.
   final double weekTitleWidth;
 
+  /// Width of week title.
+  final bool showWeekTitle;
+
   /// Called when user taps on event tile.
   final CellTapCallback<T>? onTileTap;
 
@@ -191,6 +194,7 @@ class InternalWeekViewPage<T extends Object?> extends StatefulWidget {
     required this.hourHeight,
     required this.eventArranger,
     required this.verticalLineOffset,
+    required this.showWeekTitle,
     required this.weekTitleWidth,
     required this.onTileTap,
     required this.onTileLongTap,
@@ -260,34 +264,36 @@ class _InternalWeekViewPageState<T extends Object?>
             : VerticalDirection.down,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SizedBox(
-            width: widget.width,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: widget.weekTitleHeight,
-                  width: widget.timeLineWidth +
-                      widget.hourIndicatorSettings.offset,
-                  child: widget.weekNumberBuilder.call(filteredDates[0]),
-                ),
-                ...List.generate(
-                  filteredDates.length,
-                  (index) => SizedBox(
+          if(widget.showWeekTitle) ...[
+            SizedBox(
+              width: widget.width,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
                     height: widget.weekTitleHeight,
-                    width: widget.weekTitleWidth,
-                    child: widget.weekDayBuilder(
-                      filteredDates[index],
-                    ),
+                    width: widget.timeLineWidth +
+                        widget.hourIndicatorSettings.offset,
+                    child: widget.weekNumberBuilder.call(filteredDates[0]),
                   ),
-                )
-              ],
+                  ...List.generate(
+                    filteredDates.length,
+                    (index) => SizedBox(
+                      height: widget.weekTitleHeight,
+                      width: widget.weekTitleWidth,
+                      child: widget.weekDayBuilder(
+                        filteredDates[index],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Divider(
-            thickness: 1,
-            height: 1,
-          ),
+            Divider(
+              thickness: 1,
+              height: 1,
+            ),
+          ],
           SizedBox(
             width: widget.width,
             child: Container(

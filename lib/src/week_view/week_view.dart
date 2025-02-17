@@ -135,6 +135,9 @@ class WeekView<T extends Object?> extends StatefulWidget {
   final bool showVerticalLines;
 
   /// Height of week day title,
+  final bool showWeekTitle;
+
+  /// Height of week day title,
   final double weekTitleHeight;
 
   /// Builder to build week day.
@@ -275,6 +278,7 @@ class WeekView<T extends Object?> extends StatefulWidget {
     this.onPageChange,
     this.weekPageHeaderBuilder,
     this.eventArranger,
+    this.showWeekTitle = true,
     this.weekTitleHeight = 50,
     this.weekDayBuilder,
     this.weekNumberBuilder,
@@ -534,6 +538,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
                             height: _height,
                             width: _width,
                             weekTitleWidth: _weekTitleWidth,
+                            showWeekTitle: widget.showWeekTitle,
                             weekTitleHeight: widget.weekTitleHeight,
                             weekDayBuilder: _weekDayBuilder,
                             weekNumberBuilder: _weekNumberBuilder,
