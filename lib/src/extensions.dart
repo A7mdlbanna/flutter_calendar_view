@@ -42,7 +42,7 @@ extension DateTimeExtensions on DateTime {
                   .inDays
                   .abs() /
               weekDays)
-          .ceil();
+          .floor();
 
   /// Returns The List of date of Current Week, all of the dates will be without
   /// time.
@@ -66,7 +66,7 @@ extension DateTimeExtensions on DateTime {
     //    difference = (weekdays - (start.index + 1))%7
     //
     final startDay =
-        DateTime(year, month, day - (weekday - start.index - 1) % weekDays);
+    DateTime(year, month, day);
     // Generate weekdays with weekends or without weekends
     final days = List.generate(
       weekDays,
@@ -84,11 +84,11 @@ extension DateTimeExtensions on DateTime {
 
   /// Returns the first date of week containing the current date
   DateTime firstDayOfWeek({WeekDays start = WeekDays.monday, required int weekDays}) =>
-      DateTime(year, month, day - ((weekday - start.index - 1) % weekDays));
+      DateTime(year, month, day);
 
   /// Returns the last date of week containing the current date
   DateTime lastDayOfWeek({WeekDays start = WeekDays.monday, required int weekDays}) =>
-      DateTime(year, month, day + (6 - (weekday - start.index - 1) % weekDays));
+      DateTime(year, month, day);
 
   /// Returns list of all dates of [month].
   /// All the dates are week based that means it will return array of size 42
