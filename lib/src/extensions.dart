@@ -36,12 +36,12 @@ extension DateTimeExtensions on DateTime {
       .abs();
 
   /// Gets difference of weeks between [date] and calling object.
-  int getWeekDifference(DateTime date, {WeekDays start = WeekDays.monday}) =>
-      (firstDayOfWeek(start: start)
-                  .difference(date.firstDayOfWeek(start: start))
+  int getWeekDifference(DateTime date, {WeekDays start = WeekDays.monday, int weekDays = 7}) =>
+      (firstDayOfWeek(start: start, weekDays: weekDays)
+                  .difference(date.firstDayOfWeek(start: start, weekDays: weekDays))
                   .inDays
                   .abs() /
-              7)
+              weekDays)
           .ceil();
 
   /// Returns The List of date of Current Week, all of the dates will be without
@@ -55,6 +55,7 @@ extension DateTimeExtensions on DateTime {
   List<DateTime> datesOfWeek({
     WeekDays start = WeekDays.monday,
     bool showWeekEnds = true,
+    int weekDays = 7,
   }) {
     // Here %7 ensure that we do not subtract >6 and <0 days.
     // Initial formula is,
@@ -65,10 +66,10 @@ extension DateTimeExtensions on DateTime {
     //    difference = (weekdays - (start.index + 1))%7
     //
     final startDay =
-        DateTime(year, month, day - (weekday - start.index - 1) % 7);
+        DateTime(year, month, day - (weekday - start.index - 1) % weekDays);
     // Generate weekdays with weekends or without weekends
     final days = List.generate(
-      7,
+      weekDays,
       (index) => DateTime(startDay.year, startDay.month, startDay.day + index),
     )
         .where(
@@ -82,12 +83,12 @@ extension DateTimeExtensions on DateTime {
   }
 
   /// Returns the first date of week containing the current date
-  DateTime firstDayOfWeek({WeekDays start = WeekDays.monday}) =>
-      DateTime(year, month, day - ((weekday - start.index - 1) % 7));
+  DateTime firstDayOfWeek({WeekDays start = WeekDays.monday, int weekDays = 7}) =>
+      DateTime(year, month, day - ((weekday - start.index - 1) % weekDays));
 
   /// Returns the last date of week containing the current date
-  DateTime lastDayOfWeek({WeekDays start = WeekDays.monday}) =>
-      DateTime(year, month, day + (6 - (weekday - start.index - 1) % 7));
+  DateTime lastDayOfWeek({WeekDays start = WeekDays.monday, int weekDays = 7}) =>
+      DateTime(year, month, day + (6 - (weekday - start.index - 1) % weekDays));
 
   /// Returns list of all dates of [month].
   /// All the dates are week based that means it will return array of size 42
