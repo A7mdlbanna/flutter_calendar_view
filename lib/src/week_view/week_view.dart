@@ -927,6 +927,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
       });
     }
     widget.onPageChange?.call(_currentStartDate, _currentIndex);
+    _currentWeek = _currentStartDate;
   }
 
   /// Animate to next page
