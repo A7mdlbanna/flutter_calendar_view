@@ -56,7 +56,7 @@ void testDatesOfWeekForAllWeekDayStarts(DateTime date) {
   for (final start in WeekDays.values) {
     testDatesOfWeek(
       getWeekStartDay(date, start),
-      date.datesOfWeek(start: start),
+      date.datesOfWeek(start: start, weekDays: 7),
     );
   }
 }
@@ -98,7 +98,7 @@ void testFirstDayOfTheWeekForAllWeekDays(DateTime firstDayOfTheWeek) {
       firstDayOfTheWeek.day + i,
     );
 
-    expect(firstDayOfTheWeek, date.firstDayOfWeek(start: weekDays));
+    expect(firstDayOfTheWeek, date.firstDayOfWeek(start: weekDays, weekDays: 7));
   }
 }
 
@@ -127,7 +127,7 @@ void testLastDayOfTheWeekForAllWeekDays(DateTime lastDayOfTheWeek) {
       lastDayOfTheWeek.day - i,
     );
 
-    expect(lastDayOfTheWeek, date.lastDayOfWeek(start: weekDays));
+    expect(lastDayOfTheWeek, date.lastDayOfWeek(start: weekDays, weekDays: 7));
   }
 }
 

@@ -536,6 +536,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
                             .datesOfWeek(
                           start: widget.startDay,
                           showWeekEnds: widget.showWeekends,
+                          weekDays: widget.skipDays ? 7 : widget.weekDays.length,
                         );
 
                         return ValueListenableBuilder(

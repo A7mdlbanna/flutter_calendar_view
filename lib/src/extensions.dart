@@ -36,7 +36,7 @@ extension DateTimeExtensions on DateTime {
       .abs();
 
   /// Gets difference of weeks between [date] and calling object.
-  int getWeekDifference(DateTime date, {WeekDays start = WeekDays.monday, int weekDays = 7}) =>
+  int getWeekDifference(DateTime date, {WeekDays start = WeekDays.monday, required int weekDays}) =>
       (firstDayOfWeek(start: start, weekDays: weekDays)
                   .difference(date.firstDayOfWeek(start: start, weekDays: weekDays))
                   .inDays
@@ -55,7 +55,7 @@ extension DateTimeExtensions on DateTime {
   List<DateTime> datesOfWeek({
     WeekDays start = WeekDays.monday,
     bool showWeekEnds = true,
-    int weekDays = 7,
+    required int weekDays,
   }) {
     // Here %7 ensure that we do not subtract >6 and <0 days.
     // Initial formula is,
@@ -83,11 +83,11 @@ extension DateTimeExtensions on DateTime {
   }
 
   /// Returns the first date of week containing the current date
-  DateTime firstDayOfWeek({WeekDays start = WeekDays.monday, int weekDays = 7}) =>
+  DateTime firstDayOfWeek({WeekDays start = WeekDays.monday, required int weekDays}) =>
       DateTime(year, month, day - ((weekday - start.index - 1) % weekDays));
 
   /// Returns the last date of week containing the current date
-  DateTime lastDayOfWeek({WeekDays start = WeekDays.monday, int weekDays = 7}) =>
+  DateTime lastDayOfWeek({WeekDays start = WeekDays.monday, required int weekDays}) =>
       DateTime(year, month, day + (6 - (weekday - start.index - 1) % weekDays));
 
   /// Returns list of all dates of [month].
@@ -106,7 +106,7 @@ extension DateTimeExtensions on DateTime {
     // Start is the first weekday for each week in a month
     for (var i = 1, start = 1; i < 7; i++, start += 7) {
       final datesInWeek =
-          DateTime(year, month, start).datesOfWeek(start: startDay).where(
+          DateTime(year, month, start).datesOfWeek(start: startDay, weekDays: 7).where(
                 (day) =>
                     showWeekends ||
                     (day.weekday != DateTime.saturday &&

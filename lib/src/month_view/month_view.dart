@@ -366,6 +366,7 @@ class MonthViewState<T extends Object?> extends State<MonthView<T>> {
                   final weekDays = date.datesOfWeek(
                     start: widget.startDay,
                     showWeekEnds: widget.showWeekends,
+                    weekDays: 7,
                   );
 
                   return Column(
