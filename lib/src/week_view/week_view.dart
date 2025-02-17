@@ -751,6 +751,8 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
 
     _currentStartDate = dates.first;
     _currentEndDate = dates.last;
+
+    widget.onPageChange?.call(_currentStartDate, _currentIndex);
   }
 
   /// Sets the minimum and maximum dates for current view.
