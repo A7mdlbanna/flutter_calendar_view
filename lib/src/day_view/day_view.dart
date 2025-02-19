@@ -186,6 +186,9 @@ class DayView<T extends Object?> extends StatefulWidget {
   /// where events are not there.
   final MinuteSlotSize minuteSlotSize;
 
+  /// Use this field to control the calendar scrolling
+  final Function(double offset)? onScroll;
+
   /// Use this field to disable the calendar scrolling
   final ScrollPhysics? scrollPhysics;
 
@@ -262,6 +265,7 @@ class DayView<T extends Object?> extends StatefulWidget {
     this.headerStyle = const HeaderStyle(),
     this.fullDayEventBuilder,
     this.safeAreaOption = const SafeAreaOption(),
+    this.onScroll,
     this.scrollPhysics,
     this.pageViewPhysics,
     this.dayDetectorBuilder,
@@ -919,6 +923,7 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
   /// Listener for every day page ScrollController
   void _scrollPageListener(ScrollController controller) {
     _lastScrollOffset = controller.offset;
+    widget.onScroll?.call(_lastScrollOffset);
   }
 }
 
